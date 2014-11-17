@@ -5,11 +5,17 @@ import hashlib
 
 class min_hash():
 
-    def __init__(self, num_hashes, num_shingles, shingle_size):
+    def __init__(self, num_hashes, shingle_size, step_size):
+        """
+        Constructor for creating a generic min_hash
+        :param num_hashes: the number of hash functions to be used
+        :param shingle_size: the size of each shingle to compare
+        :param step_size: the number of steps we move ahead as we create shingles
+        """
         #Store these values for our min_hash
         self.num_hashes = num_hashes
-        self.num_shingles = num_shingles
         self.shingle_size = shingle_size
+        self.step_size = step_size
         #Create array of numbers used to hash
         self.hash_numbers = []
         #create the random numbers for our hashing function
@@ -20,21 +26,34 @@ class min_hash():
 
     def add_article(self, name, text):
         self.articles[name] = []
+        #Initialize every minhash number so we know it exists
+        for i in range(0,self.num_hashes):
+            self.articles[name].append(sys.maxint)
 
-        for i in range(0,self.num_shingles):
-            #Get a random number to pull the shingle from
-            shingle_index = random.randint(0,len(text)-self.shingle_size-1)
-            shingle = text[shingle_index:shingle_index+self.shingle_size]
-            #Now that we have the shingle, lets calculate the minimum hash
-            min_hashnum = sys.maxint
+        #We are going to go through and get every shingle of a certain size
+        #The reason why we are dividing by two is so that there is overlap among
+        #the shingles. May want to change this to be changeable
+        for i in range(0, len(text), self.step_size):
+            #Make sure we are not going past the text
+            if i+self.step_size > len(text):
+                break
+            shingle = text[i:i+self.shingle_size]
+            original_hash_value = int(hashlib.md5(shingle).hexdigest(), 16) & 0xffffffff
+            #Now that we have the shingle, lets calculate the minimum hash for all hashes
             for j in range(0,self.num_hashes):
                 #We first hash the function and mask it with 32bits of 1's in order to get
                 #The last 32 bits of the hash. Then we xor it with the random 32 bits we
                 #Generated before. This creates our has number
-                current_hash_num = (int(hashlib.md5(shingle).hexdigest(), 16) & 0xffffffff) ^ self.hash_numbers[j]
+                current_hash_num = original_hash_value ^ self.hash_numbers[j]
 
                 #If our current hash is the lowest one, remember it
-                if current_hash_num < min_hashnum:
-                    min_hashnum = current_hash_num
+                if current_hash_num < self.articles[name][j]:
+                    self.articles[name][j] = current_hash_num
 
-            self.articles[name].append(min_hashnum)
+    def get_similarity(self,article1,article2):
+        sim_count = 0.0
+        for i in range(0,self.num_hashes):
+            if self.articles[article1][i] == self.articles[article2][i]:
+                sim_count += 1
+
+        return sim_count/self.num_hashes

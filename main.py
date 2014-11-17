@@ -1,4 +1,5 @@
 from min_hash import *
+import datetime
 
 def get_genome(filename):
     file_open = open(filename, "r")
@@ -12,10 +13,18 @@ def get_genome(filename):
 
     return name, genome
 
-#Create our min hash
-hash = min_hash(100,500000,30)
 #Get our first genome
 name, genome = get_genome("test_genomes/Escherichia coli SE15.fasta")
-#add to our hash
-hash.add_article(name, genome)
-hash.add_article(name + "1", genome)
+
+#Uses create our minimum hash structure
+hash = min_hash(200,20,1)
+
+print "Begin at:"
+print datetime.datetime.now().time()
+hash.add_article("article1", genome)
+print "article 1 at"
+print datetime.datetime.now().time()
+hash.add_article("article2", genome)
+print "article 2 at"
+print datetime.datetime.now().time()
+print hash.get_similarity("article1","article2")
