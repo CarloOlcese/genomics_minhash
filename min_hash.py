@@ -5,24 +5,34 @@ import hashlib
 
 class min_hash():
 
-    def __init__(self, num_hashes, shingle_size, step_size):
+    def __init__(self, num_hashes, shingle_size, step_size, hashes=None):
         """
         Constructor for creating a generic min_hash
         :param num_hashes: the number of hash functions to be used
         :param shingle_size: the size of each shingle to compare
         :param step_size: the number of steps we move ahead as we create shingles
+        :param hashes: If we want to use precomputed hashes, this will be the hashnumbers
         """
-        #Store these values for our min_hash
-        self.num_hashes = num_hashes
-        self.shingle_size = shingle_size
-        self.step_size = step_size
-        #Create array of numbers used to hash
-        self.hash_numbers = []
-        #create the random numbers for our hashing function
-        for i in range(0,self.num_hashes):
-            self.hash_numbers.append(random.getrandbits(32))
+        if hashes == None:
+            #Store these values for our min_hash
+            self.num_hashes = num_hashes
+            self.shingle_size = shingle_size
+            self.step_size = step_size
+            #Create array of numbers used to hash
+            self.hash_numbers = []
+            #create the random numbers for our hashing function
+            for i in range(0,self.num_hashes):
+                self.hash_numbers.append(random.getrandbits(32))
 
-        self.articles = {}
+            self.articles = {}
+        else:
+            #Store these values for our min_hash
+            self.num_hashes = num_hashes
+            self.shingle_size = shingle_size
+            self.step_size = step_size
+            #Use the passed array as our hash numbers
+            self.hash_numbers = hashes
+            self.articles = {}
 
     def add_article(self, name, text):
         self.articles[name] = []
