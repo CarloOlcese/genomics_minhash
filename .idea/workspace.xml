@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c9bde7f2-0244-41af-bd4e-8c1a85c7905e" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test_genomes/Escherichia coli O157:H7 str. EDL933.fasta" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test_genomes/Escherichia coli O157:H7 str. Sakai.fasta" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test_genomes/README.txt" afterPath="$PROJECT_DIR$/test_genomes/README.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.py" afterPath="$PROJECT_DIR$/main.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="genomics_minhash.iws" />
@@ -351,7 +347,11 @@
       <created>1417312359963</created>
       <updated>1417312359963</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="Added The stuff for the stored genome. Looks pretty good, may want to add option to do comparisons on all stored genomes. May want to add more genomes too.">
+      <created>1417403909735</created>
+      <updated>1417403909735</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -381,6 +381,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32973805" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21752739" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32973805" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32973805" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32973805" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -389,7 +390,6 @@
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -416,7 +416,8 @@
     <MESSAGE value="Added main driver, created method for pulling in a file" />
     <MESSAGE value="Fixed our min hash to be doing the correct thing." />
     <MESSAGE value="Added a menu and the new option to use a precomputed array of hashes. Assumed 200 hashes, may need to change this. Still work to do, must create min hashes for all genomes." />
-    <option name="LAST_COMMIT_MESSAGE" value="Added a menu and the new option to use a precomputed array of hashes. Assumed 200 hashes, may need to change this. Still work to do, must create min hashes for all genomes." />
+    <MESSAGE value="Added The stuff for the stored genome. Looks pretty good, may want to add option to do comparisons on all stored genomes. May want to add more genomes too." />
+    <option name="LAST_COMMIT_MESSAGE" value="Added The stuff for the stored genome. Looks pretty good, may want to add option to do comparisons on all stored genomes. May want to add more genomes too." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
