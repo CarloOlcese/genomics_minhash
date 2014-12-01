@@ -20,6 +20,31 @@ def get_genome(filename):
     file_open.close()
     return name, genome
 
+def get_reads(filename):
+    """
+    return an array of all of the reads
+    :param filename: the name of the file to grab the reads from
+    :return: array of the reads
+    """
+    file_open = open(filename, "r")
+    read = ""
+    name = ""
+    reads = []
+
+    for line in file_open:
+        if line[0:1] == ">":
+            if read != "":
+                reads.append(read)
+                read = ""
+         #   name = line[1:].rstrip()
+        else:
+            read = read + line.rstrip()
+
+    reads.append(read)
+    file_open.close()
+    print "# of reads:", len(reads)
+    return reads
+
 def mutate(filename, variation):
     """
     Mutate the given genome by the amount specified in the variation
@@ -143,6 +168,30 @@ def run_defined_hash():
         exit(0)
     ##############################################
 
+
+def add_reads_begin_hash():
+    """
+    print the scores of the read compared to each genome we have stored
+    """
+    filename = raw_input("File Name and Directory (Including extension): ")
+    reads = get_reads(filename)
+    #Create map for scoring
+    genome_score = {}
+    for genome in minhash_saved.articles:
+        genome_score[genome] = 0
+    for read in reads:
+        # Adding an article automatically overwirtes a previous one with the same name
+        minhash_saved.add_article("read", read)
+        for genome in minhash_saved.articles:
+            if genome != read:
+               if minhash_saved.get_similarity(read, genome) > 0:
+                   genome_score[genome] += 1
+    minhash_saved.delete_article("read")
+    print "Genome Hits For Reads:"
+    for genome in genome_score:
+        print genome + ": " + genome_score[genome] + "\n"
+
+
 def main():
     while True:
         print ("-------------HOME MENU--------------")
@@ -150,6 +199,7 @@ def main():
         print ("0 to exit")
         print ("1 to run with all new data")
         print ("2 to run with pre-selected hashes")
+        print ("3 to run reads against stored hashes")
         print ("------------------------------------")
         choice = raw_input("Your choice: ")
 
@@ -159,6 +209,8 @@ def main():
             all_new_data()
         elif choice == "2":
             run_defined_hash()
+        elif choice == "3":
+            add_reads_begin_hash()
         elif choice == "0":
             print ("Exiting...")
             exit(0)

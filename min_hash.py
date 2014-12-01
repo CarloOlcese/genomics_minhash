@@ -60,6 +60,9 @@ class min_hash():
                 if current_hash_num < self.articles[name][j]:
                     self.articles[name][j] = current_hash_num
 
+    def delete_article(self, name):
+        del self.articles[name]
+
     def get_similarity(self,article1,article2):
         sim_count = 0.0
         for i in range(0,self.num_hashes):
