@@ -117,7 +117,7 @@ def add_genome_defined_hash():
     print "Adding hash to our hash numbers file"
     minhash_tosave = minhash_saved.articles[name]
 
-    writestring = name + ": "
+    writestring = "\n" + name + ": "
     for num in minhash_tosave:
         writestring = writestring + str(num) + " "
     #Delete the last space
@@ -177,19 +177,19 @@ def add_reads_begin_hash():
     reads = get_reads(filename)
     #Create map for scoring
     genome_score = {}
-    for genome in minhash_saved.articles:
+    for genome in minhash_saved.articles.keys():
         genome_score[genome] = 0
     for read in reads:
         # Adding an article automatically overwirtes a previous one with the same name
         minhash_saved.add_article("read", read)
-        for genome in minhash_saved.articles:
-            if genome != read:
-               if minhash_saved.get_similarity(read, genome) > 0:
+        for genome in minhash_saved.articles.keys():
+            if genome != "read":
+               if minhash_saved.get_similarity("read", genome) > 0:
                    genome_score[genome] += 1
     minhash_saved.delete_article("read")
     print "Genome Hits For Reads:"
-    for genome in genome_score:
-        print genome + ": " + genome_score[genome] + "\n"
+    for genome in genome_score.keys():
+        print genome + ": " + str(genome_score[genome])
 
 
 def main():
