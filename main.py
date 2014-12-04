@@ -73,23 +73,40 @@ def mutate(filename, variation):
 
 
 def all_new_data():
-    #Get our first genome
-    name, genome = get_genome("test_genomes/Escherichia coli SE15.fasta")
-    name2, genome2 = get_genome("test_genomes/Sulfolobus islandicus LAL14.fasta")
-    #mutated_genome = mutate("test_genomes/Escherichia coli SE15.fasta", .1)
+    """
+    This is the menu function for a user to create their own MinHash. Allows user to add genomes, and compare them
+    """
+    num_hashes = raw_input("Please enter your desired number of hash functions: ")
+    shingle_size = raw_input("Please enter your desired shingle size: ")
 
-    #Uses create our minimum hash structure
-    hash = min_hash(200,20,1)
+    #Create a new MinHash according to the desired parameters
+    hash = min_hash(int(num_hashes),int(shingle_size),1)
 
-    begin_time = datetime.datetime.now()
-    hash.add_article("article1", genome)
-    hash.add_article("article2", genome2)
-    end_time = datetime.datetime.now()
+    while True:
+        print ("-------------NEW HASH MENU--------------")
+        print ("Please select an option and press enter")
+        print ("0 to exit")
+        print ("1 to add a new genome")
+        print ("2 to compare two genomes")
+        print ("------------------------------------------")
+        choice = raw_input("Your choice: ")
 
-    time_difference = end_time - begin_time
-    #This needs to be changed
-    print (time_difference.seconds)
-    print (hash.get_similarity("article1","article2"))
+        if choice == "1":
+            #Add a new genome to the created hash
+            add_genome_with_temp_hash(hash)
+        elif choice == "2":
+            #Compare two of the genomes in the created hash
+            compare_two_temp_genome(hash)
+        else:
+            ans = raw_input("Exiting will delete all of the genomes you have added here. "
+                            "Are you sure you want to continue (Y/N)?")
+            if ans == "Y":
+                print ("Exiting...")
+                exit(0)
+
+
+
+
 
 def set_up_precomputed_minhashes(filename):
     """
@@ -125,6 +142,13 @@ def add_genome_defined_hash():
     file_open = open(saved_hash_filename, "a")
     file_open.write(writestring)
 
+def add_genome_with_temp_hash(hash):
+    filename = raw_input("File Name and Directory (Including extension): ")
+    name, genome = get_genome(filename)
+    print "Min Hashing given genome: " + name
+    hash.add_article(name, genome)
+    print "Min Hashing complete!"
+
 def compare_two_genome_defined_hash():
     print "Here are the genomes we have to compare"
     name_arr = []
@@ -137,6 +161,23 @@ def compare_two_genome_defined_hash():
     first_choice = raw_input("First Selection (Number): ")
     second_choice = raw_input("Second Selection (Number): ")
     percent = 100*minhash_saved.get_similarity(name_arr[int(first_choice)], name_arr[int(second_choice)])
+    print "Comparing the genomes - "
+    print name_arr[int(first_choice)]
+    print name_arr[int(second_choice)]
+    print "Similarity: " + str(percent) + "%"
+
+def compare_two_temp_genome(hash):
+    print "Here are the genomes you added to compare"
+    name_arr = []
+    i = 0
+    for key in hash.articles.keys():
+        name_arr.append(key)
+        print str(i) + ") " + key
+        i += 1
+
+    first_choice = raw_input("First Selection (Number): ")
+    second_choice = raw_input("Second Selection (Number): ")
+    percent = 100*hash.get_similarity(name_arr[int(first_choice)], name_arr[int(second_choice)])
     print "Comparing the genomes - "
     print name_arr[int(first_choice)]
     print name_arr[int(second_choice)]
