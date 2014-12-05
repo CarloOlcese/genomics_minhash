@@ -47,6 +47,6 @@ program will prompt you with a list of options
 
 3: to run reads against stored hashes
   use this to compare reads to all of the hashes we have stored
-  enter your file (we have some stored in the project to test with), and the hits are printed for each genome.
+  enter your file (we have some stored in the project to test with. To use one, enter "reads/*file_name*"), and the hits are printed for each genome.
   
   
