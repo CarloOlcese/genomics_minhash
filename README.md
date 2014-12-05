@@ -11,7 +11,7 @@ program will prompt you with a list of options
 0: to exit
   use this option to close the program
 
-
+---------------------------------------------------
 
 1: to add a new genome
   this option will ask you for your desired shingle size and desired number of hash functions.
@@ -28,7 +28,7 @@ program will prompt you with a list of options
   2: to compare two genomes
     choose this option to see the similarity between two of the genomes you have added to your hash function
 
-
+---------------------------------------------------
 
 2: to run with pre-selected hashes
   this option allows you to compare new genomes with our already computed hashes, or our computed hashes to eachother
@@ -43,7 +43,7 @@ program will prompt you with a list of options
   2: to compare two genomes
     choose this option to see the similarity between two of the genomes in our stored hashes
 
-
+---------------------------------------------------
 
 3: to run reads against stored hashes
   use this to compare reads to all of the hashes we have stored
