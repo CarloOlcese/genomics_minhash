@@ -80,7 +80,7 @@ def all_new_data():
     shingle_size = raw_input("Please enter your desired shingle size: ")
 
     #Create a new MinHash according to the desired parameters
-    hash = min_hash(int(num_hashes),int(shingle_size),1)
+    user_hash = min_hash(int(num_hashes),int(shingle_size),1)
 
     while True:
         print ("-------------NEW HASH MENU--------------")
@@ -93,10 +93,10 @@ def all_new_data():
 
         if choice == "1":
             #Add a new genome to the created hash
-            add_genome_with_temp_hash(hash)
+            add_genome_with_temp_hash(user_hash)
         elif choice == "2":
             #Compare two of the genomes in the created hash
-            compare_two_temp_genome(hash)
+            compare_two_temp_genome(user_hash)
         else:
             ans = raw_input("Exiting will delete all of the genomes you have added here. "
                             "Are you sure you want to continue (Y/N)?")
@@ -142,11 +142,11 @@ def add_genome_defined_hash():
     file_open = open(saved_hash_filename, "a")
     file_open.write(writestring)
 
-def add_genome_with_temp_hash(hash):
+def add_genome_with_temp_hash(user_hash):
     filename = raw_input("File Name and Directory (Including extension): ")
     name, genome = get_genome(filename)
     print "Min Hashing given genome: " + name
-    hash.add_article(name, genome)
+    user_hash.add_article(name, genome)
     print "Min Hashing complete!"
 
 def compare_two_genome_defined_hash():
@@ -166,18 +166,18 @@ def compare_two_genome_defined_hash():
     print name_arr[int(second_choice)]
     print "Similarity: " + str(percent) + "%"
 
-def compare_two_temp_genome(hash):
+def compare_two_temp_genome(user_hash):
     print "Here are the genomes you added to compare"
     name_arr = []
     i = 0
-    for key in hash.articles.keys():
+    for key in user_hash.articles.keys():
         name_arr.append(key)
         print str(i) + ") " + key
         i += 1
 
     first_choice = raw_input("First Selection (Number): ")
     second_choice = raw_input("Second Selection (Number): ")
-    percent = 100*hash.get_similarity(name_arr[int(first_choice)], name_arr[int(second_choice)])
+    percent = 100*user_hash.get_similarity(name_arr[int(first_choice)], name_arr[int(second_choice)])
     print "Comparing the genomes - "
     print name_arr[int(first_choice)]
     print name_arr[int(second_choice)]
