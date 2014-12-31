@@ -45,15 +45,13 @@ def get_reads(filename):
     print "# of reads:", len(reads)
     return reads
 
-def mutate(filename, variation):
+def mutate(genome, variation):
     """
     Mutate the given genome by the amount specified in the variation
-    :param filename: the name of the file of the genome to be mutated
+    :param genome: the genome to be mutated
     :param variation: the percent amount that we want to mutate the genome by, up to 2 decimals
     :return: the mutated genome
     """
-    #Get the given genome
-    name, genome = get_genome(filename)
     return_genome = ""
     for i in range(0,len(genome)):
         if random.randint(1,10000) < variation*100:
@@ -105,6 +103,7 @@ def all_new_data():
         print ("0 to exit")
         print ("1 to add a new genome")
         print ("2 to compare two genomes")
+        print ("3 to mutate and add an existing genome")
         print ("------------------------------------------")
         choice = raw_input("Your choice: ")
 
@@ -114,6 +113,9 @@ def all_new_data():
         elif choice == "2":
             #Compare two of the genomes in the created hash
             compare_two_temp_genome(user_hash)
+        elif choice == "3":
+            #Compare two of the genomes in the created hash
+            mutate_genome_with_temp_hash(user_hash)
         else:
             ans = raw_input("Exiting will delete all of the genomes you have added here. "
                             "Are you sure you want to continue (Y/N)?")
@@ -164,6 +166,17 @@ def add_genome_with_temp_hash(user_hash):
     name, genome = get_genome(filename)
     print "Min Hashing given genome: " + name
     user_hash.add_article(name, genome)
+    print "Min Hashing complete!"
+
+def mutate_genome_with_temp_hash(user_hash):
+
+    filename = raw_input("File Name and Directory (Including extension): ")
+    name, genome = get_genome(filename)
+    rate = raw_input("Mutation rate percentage (up to 2 decimals): ")
+    #Mutate the genome selected
+    mutated_genome = mutate(genome, float(rate))
+    print "Genome mutated successfully, now adding to minhash"
+    user_hash.add_article(name + " Mutated " + str(rate) + "%", mutated_genome)
     print "Min Hashing complete!"
 
 def compare_two_genome_defined_hash():
