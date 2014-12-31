@@ -57,15 +57,32 @@ def mutate(filename, variation):
     return_genome = ""
     for i in range(0,len(genome)):
         if random.randint(1,10000) < variation*100:
-            transform_num = random.randint(1,4)
+            transform_num = random.randint(1,6)
+            #First four represent a random mutation
+            #Could also randomly select the same letter
             if transform_num == 1:
                 return_genome = return_genome + "A"
             elif transform_num == 2:
                 return_genome = return_genome + "C"
             elif transform_num == 3:
                 return_genome = return_genome + "G"
-            else:
+            elif transform_num == 4:
                 return_genome = return_genome + "T"
+            #Choice five represents an insertion
+            elif transform_num == 5:
+                #Create a random insertion
+                insert_num = random.randint(1,4)
+                if insert_num == 1:
+                    return_genome = return_genome + "A" + genome[i]
+                elif insert_num == 2:
+                    return_genome = return_genome + "C" + genome[i]
+                elif insert_num == 3:
+                    return_genome = return_genome + "G" + genome[i]
+                elif insert_num == 4:
+                    return_genome = return_genome + "T" + genome[i]
+            #Choice six represents a deletion so nothing is added
+            else:
+                pass
         else:
             return_genome = return_genome + genome[i]
 
