@@ -35,6 +35,11 @@ class min_hash():
             self.articles = {}
 
     def add_article(self, name, text):
+        """
+        Add a new article to the MinHash
+        :param name: the name of the article within the MinHash
+        :param text: The article text to be hashed
+        """
         self.articles[name] = []
         #Initialize every minhash number so we know it exists
         for i in range(0,self.num_hashes):
@@ -61,9 +66,20 @@ class min_hash():
                     self.articles[name][j] = current_hash_num
 
     def delete_article(self, name):
+        """
+        Delete an article from the MinHash
+        :param name: The name of article to be deleted
+        :return:
+        """
         del self.articles[name]
 
     def get_similarity(self,article1,article2):
+        """
+        Compare the similarity of the fingerprints of two articles
+        :param article1: The name of the first article to be compared
+        :param article2: The name of the second article to be compared
+        :return:
+        """
         sim_count = 0.0
         for i in range(0,self.num_hashes):
             if self.articles[article1][i] == self.articles[article2][i]:

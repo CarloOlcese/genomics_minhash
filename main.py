@@ -146,6 +146,9 @@ def set_up_precomputed_minhashes(filename):
     file_open.close()
 
 def add_genome_defined_hash():
+    """
+    Function called to add a genome to the already defined MinHash
+    """
     filename = raw_input("File Name and Directory (Including extension): ")
     name, genome = get_genome(filename)
     print "Min Hashing given genome: " + name
@@ -153,15 +156,45 @@ def add_genome_defined_hash():
     print "Adding hash to our hash numbers file"
     minhash_tosave = minhash_saved.articles[name]
 
-    writestring = "\n" + name + ": "
+    writestring = name + ": "
     for num in minhash_tosave:
         writestring = writestring + str(num) + " "
     #Delete the last space
     writestring = writestring[:-1]
     file_open = open(saved_hash_filename, "a")
-    file_open.write(writestring)
+    file_open.write(writestring + "\n")
+    file_open.close()
+
+def add_mutated_genome_defined_hash():
+    """
+    Function called to mutate a genome and add it to the already defined MinHash
+    """
+    print "The genome you give here will be mutated before being MinHashed"
+    filename = raw_input("File Name and Directory (Including extension): ")
+    name, genome = get_genome(filename)
+    rate = raw_input("Mutation rate percentage (up to 2 decimals): ")
+
+    #Mutate the genome selected
+    mutated_genome = mutate(genome, float(rate))
+    print "Genome mutated successfully, now adding to minhash"
+    minhash_saved.add_article(name + " Mutated " + str(rate) + "%", mutated_genome)
+    print "Adding hash to our hash numbers file"
+    minhash_tosave = minhash_saved.articles[name + " Mutated " + str(rate) + "%"]
+
+    writestring = name + " Mutated " + str(rate) + "%" + ": "
+    for num in minhash_tosave:
+        writestring = writestring + str(num) + " "
+    #Delete the last space
+    writestring = writestring[:-1]
+    file_open = open(saved_hash_filename, "a")
+    file_open.write(writestring + "\n")
+    file_open.close()
 
 def add_genome_with_temp_hash(user_hash):
+    """
+    Function to add a new genome to a temporary MinHash
+    :param user_hash: the MinHash to add the genome to
+    """
     filename = raw_input("File Name and Directory (Including extension): ")
     name, genome = get_genome(filename)
     print "Min Hashing given genome: " + name
@@ -169,7 +202,10 @@ def add_genome_with_temp_hash(user_hash):
     print "Min Hashing complete!"
 
 def mutate_genome_with_temp_hash(user_hash):
-
+    """
+    Function to mutate a new genome to a temporary MinHash
+    :param user_hash: the MinHash to add the mutated genome to
+    """
     filename = raw_input("File Name and Directory (Including extension): ")
     name, genome = get_genome(filename)
     rate = raw_input("Mutation rate percentage (up to 2 decimals): ")
@@ -180,6 +216,9 @@ def mutate_genome_with_temp_hash(user_hash):
     print "Min Hashing complete!"
 
 def compare_two_genome_defined_hash():
+    """
+    Function called to compare two of the genomes in our pre-defined MinHash
+    """
     print "Here are the genomes we have to compare"
     name_arr = []
     i = 0
@@ -197,6 +236,10 @@ def compare_two_genome_defined_hash():
     print "Similarity: " + str(percent) + "%"
 
 def compare_two_temp_genome(user_hash):
+    """
+    Function to compare two genomes from a temporary MinHash
+    :param user_hash: the MinHash to compare from
+    """
     print "Here are the genomes you added to compare"
     name_arr = []
     i = 0
@@ -214,6 +257,9 @@ def compare_two_temp_genome(user_hash):
     print "Similarity: " + str(percent) + "%"
 
 def run_defined_hash():
+    """
+    Main Function to run for the pre-defined MinHash
+    """
     ############################################
     #Menu stuff
     print "We currently have hashes for: "
@@ -225,6 +271,7 @@ def run_defined_hash():
     print ("0 to exit")
     print ("1 to add a new genome")
     print ("2 to compare two genomes")
+    print ("3 to add a mutated genome")
     print ("------------------------------------------")
     choice = raw_input("Your choice: ")
 
@@ -234,6 +281,8 @@ def run_defined_hash():
     elif choice == "2":
         #Compare two of the genomes we have
         compare_two_genome_defined_hash()
+    elif choice == "3":
+        add_mutated_genome_defined_hash()
     else:
         print ("Exiting...")
         exit(0)
@@ -242,7 +291,8 @@ def run_defined_hash():
 
 def add_reads_begin_hash():
     """
-    print the scores of the read compared to each genome we have stored
+    Calculate and print the scores of the reads compared to each genome we have stored
+    Counts the number of hits we have for each read->genome fingerprint comparison
     """
     filename = raw_input("File Name and Directory (Including extension): ")
     reads = get_reads(filename)
@@ -264,6 +314,9 @@ def add_reads_begin_hash():
 
 
 def main():
+    """
+    Main Function Loop
+    """
     while True:
         print ("-------------HOME MENU--------------")
         print ("Please select an option and press enter")
@@ -290,6 +343,7 @@ def main():
 #For the saved minhash
 global saved_hash_filename
 saved_hash_filename = "hashnums.txt"
+#This is a predetermined MinHash Function
 saved_hash = [100812221, 1012216673, 2724886533, 3713561295, 3704220460, 3112985602, 3655860748, 1023600249, 593097041, 2892599333, 1448004575, 3801471907, 368044835, 678078168, 3608322806, 3564805288, 674329378, 1067228399, 91608111, 540214929, 3765067669, 3219447150, 3148060934, 2135471616, 2401450681, 2987631727, 2835615844, 2389716441, 3491962627, 1421141602, 270318612, 2863616457, 2997764315, 1412478562, 1747777209, 2752703216, 2839552925, 1003621188, 523755966, 3572997441, 1703508918, 1902896465, 422771180, 3317716637, 842587289, 3428433996, 3457815678, 3181112400, 1228782229, 4214998960, 3675958758, 144359873, 3565183215, 3253427381, 3894931338, 950600950, 249604060, 2384294229, 930225442, 367269762, 1198125501, 3291608642, 3153982165, 2400338004, 66964370, 155429338, 3290360214, 474134523, 808674495, 1083398942, 3407470949, 3789194285, 691762897, 2228227507, 3914476907, 3769913061, 2222392774, 2934986323, 3227924490, 2290374904, 3279511850, 4264351692, 588602744, 2453336838, 3114729672, 3513648113, 3185955759, 3086181896, 1242702683, 1163981952, 1601502496, 713899053, 3384526484, 753403463, 4136310947, 2382078233, 2972629400, 2877763078, 608293111, 3590941424, 2641267673, 2422264801, 513079753, 2097596902, 1696332477, 1715325154, 1031255710, 1593472944, 762009352, 481480303, 2294120733, 509113695, 2950745956, 1825971936, 2571645712, 3346955169, 2508218675, 3229366270, 450231117, 3504245449, 1758391726, 735752981, 1665521780, 3615775971, 1806324574, 680529743, 2371294787, 3583746767, 2732175550, 3199396713, 3358603313, 531542364, 194517513, 3539896642, 3773063066, 722027652, 3680066373, 2818354049, 1285147905, 2740612483, 2012385358, 1081561511, 1122017246, 4154800764, 2044167219, 1287388873, 3213910162, 2038519516, 66096803, 1696030903, 318379715, 3962679749, 2021632220, 3421167384, 3036567640, 3998894496, 1683957540, 3541140008, 142295478, 673797322, 694855126, 2294602884, 89788257, 4025399103, 2355358098, 3068181027, 2846484503, 3142942959, 3982788037, 1451799361, 3646328872, 2395234189, 620232457, 2181240814, 283389245, 112295929, 2268606677, 3239811647, 2690901112, 1364321913, 2895838015, 2059900383, 1612278460, 1483647671, 4218599085, 2969627889, 3488451073, 3967562870, 3005423457, 2244684175, 1530580371, 2928809573, 3538802110, 1403072820, 2473640532, 282879791, 3691164018, 63180133, 3618998977, 1201812408]
 global minhash_saved
 minhash_saved = min_hash(200, 50, 1, saved_hash)
